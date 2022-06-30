@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'core',
-    'rest_cliente'
+    'rest_cliente',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SmartPointOfSalesBackend.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
