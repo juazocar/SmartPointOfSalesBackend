@@ -10,10 +10,14 @@ from rest_framework.authtoken.models import Token
 
 @api_view(['POST'])
 def login(request):
-    data = JSONParser().parse(request)
+    
+    try:
+        data = JSONParser().parse(request)
 
-    username = data['username']
-    password = data['password']
+        username = data['username']
+        password = data['password']
+    except:
+          return Response("Los valores deben ser username y password")  
 
     try:
         user = User.objects.get(username=username)
@@ -25,6 +29,10 @@ def login(request):
         return Response("Password incorrecta")
 
     token, created = Token.objects.get_or_create(user=user)
+    print(f"token {token}")
+    print(f"created {created}")
+
+    json_response = '{"token":"'+token.key+'", "created":"'+str(created)+'"}'
 
     return Response(token.key)
 
